@@ -12,6 +12,7 @@ public class Main {
         TaskBO taskbo = new TaskBO(new ArrayList<>());
 
         while (true) {
+            System.out.println("==== Task Manager ====");
             System.out.println("1. Add task");
             System.out.println("2. Delete Task");
             System.out.println("3. Show Task");
@@ -23,6 +24,7 @@ public class Main {
                     1, 5);
             switch (choice) {
                 case 1:
+                    System.out.println("==== Add Task ====");
                     taskbo.add();
                     break;
                 case 2:

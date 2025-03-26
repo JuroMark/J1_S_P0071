@@ -32,9 +32,9 @@ public class TaskBO {
         list.remove(task);
     }
 
-    public Task getTaskByCode(int code) {
+    public Task getTaskByCode(int id) {
         for (Task task : list) {
-            if (task.getId() == code) {
+            if (task.getId() == id) {
                 return task;
             }
         }
