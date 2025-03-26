@@ -42,9 +42,17 @@ public class TaskBO {
     }
 
     public void display() {
+        String header = String.format(
+                "%-5s %-15s %-10s %-12s %-8s %-10s %-10s",
+                "ID", "Name", "TaskType", "Date", "Time", "Assignee", "Reviewer");
+        System.out.println(header);
         list.sort(Comparator.comparingInt(Task::getId));
         for (Task task : list) {
             task.display();
         }
+    }
+
+    public List<Task> getListTask() {
+        return list;
     }
 }

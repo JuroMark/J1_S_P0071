@@ -106,16 +106,16 @@ public class Task {
 
     public void input(TaskBO task) {
         this.id = ++count;
+        this.requirementName = Validate.getString(
+                "Requirement name: ",
+                IConstant.REGULAR_STRING,
+                IMessage.ENTER_AGAIN);
         this.taskTypeId = Validate.getInt(
-                "Enter task type id: ",
+                "Task type id: ",
                 IMessage.ENTER_AGAIN,
                 IMessage.ENTER_AGAIN,
                 1,
                 4);
-        this.requirementName = Validate.getString(
-                "Enter requirement name: ",
-                IConstant.REGULAR_STRING,
-                IMessage.ENTER_AGAIN);
         this.date = Validate.getDate(
                 "Enter date: ",
                 "Date out of range!",
@@ -125,7 +125,7 @@ public class Task {
 
         do {
             this.planFrom = Validate.getDouble(
-                    "Enter plan from: ",
+                    "Plan from: ",
                     IMessage.ENTER_AGAIN,
                     IMessage.ENTER_AGAIN,
                     8,
@@ -141,17 +141,17 @@ public class Task {
             }
         } while (this.planTo > 17.5);
         this.assign = utils.Validate.getString(
-                "Enter assign: ",
+                "Assignee: ",
                 IConstant.REGULAR_STRING,
                 IMessage.ENTER_AGAIN);
         this.reviewer = utils.Validate.getString(
-                "Enter reviewer",
+                "Reviewer: ",
                 IConstant.REGULAR_STRING,
                 IMessage.ENTER_AGAIN);
     }
 
     public void display() {
-        System.out.printf("%-5d%-15s%-5d%-15s%-8.1f%-10s%-10s\n",
+        System.out.printf("%-5d %-15s %-10d %-12s %-8.1f %-10s %-10s\n",
                 this.id,
                 this.requirementName,
                 this.taskTypeId,

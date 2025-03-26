@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 import bo.TaskBO;
 import mocks.Data;
 import model.Task;
@@ -7,7 +9,7 @@ import utils.Validate;
 
 public class Main {
     public static void main(String[] args) {
-        TaskBO taskbo = new TaskBO(Data.listdata());
+        TaskBO taskbo = new TaskBO(new ArrayList<>());
 
         while (true) {
             System.out.println("1. Add task");
@@ -33,11 +35,12 @@ public class Main {
                     taskbo.delete(task);
                     break;
                 case 3:
+                    System.out.println("----------------------------- Task ------------------------------");
                     taskbo.display();
                     break;
                 case 4:
-                    taskbo.setList(Data.listdata());
-                    System.out.println("Sample data loaded successfully.");
+                    taskbo.getListTask().addAll(Data.listdata());
+                    System.out.println("Load sample data success");
                     break;
                 case 5:
                     System.out.println("Exit");
