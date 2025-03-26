@@ -1,8 +1,9 @@
 package utils;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.Year;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Validate {
@@ -100,23 +101,36 @@ public class Validate {
      * @param max                    The maximum date.
      * @return the valid date.
      */
-    public static String getDate(String messageInfo, String messageErrorOutOfRange,
-            String messageErrorDate, String format,
+    public static String getDate(String messageInfo, String errorOutOfRange,
+            String errorInvalid, String format,
             LocalDate min, LocalDate max) {
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(format);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         while (true) {
+            System.out.print(messageInfo);
+            String input = SCANNER.nextLine().trim();
+            String[] parts = input.split("/");
+            if (parts.length != 3) {
+                System.out.println(errorInvalid);
+                continue;
+            }
             try {
-                System.out.print(messageInfo);
-                String input = SCANNER.nextLine();
-                LocalDate date = LocalDate.parse(input, dateFormatter);
-
-                if (!date.isBefore(min) && !date.isAfter(max)) {
-                    return date.format(dateFormatter);
+                int day = Integer.parseInt(parts[0]);
+                int month = Integer.parseInt(parts[1]);
+                int year = Integer.parseInt(parts[2]);
+                if (month == 2 && day == 29 && !Year.isLeap(year)) {
+                    System.out.println("Invalid date! " + year + " is not a leap year.");
+                    continue;
                 }
-                System.out.println(messageErrorOutOfRange);
-            } catch (DateTimeParseException e) {
-                System.out.println(messageErrorDate);
+                LocalDate date = LocalDate.of(year, month, day);
+                if (!date.isBefore(min) && !date.isAfter(max)) {
+                    return date.format(formatter);
+                } else {
+                    System.out.println(errorOutOfRange);
+                }
+            } catch (NumberFormatException | DateTimeException e) {
+                System.out.println(errorInvalid);
             }
         }
     }
+
 }
